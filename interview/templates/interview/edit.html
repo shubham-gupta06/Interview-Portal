@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create interview</title>
+</head>
+<body>
+	<h1 align='center'>Edit Interview</h1>
+	<a href="{% url 'show-all'%}">Interview List</a>
+	<br>
+	<br>
+	{% if messages %}
+		    {% for message in messages %}
+		     {{ message }}
+		    {% endfor %}
+    {% endif %}
+	<br>
+	<form method="POST" action="{% url 'edit-interview' %}">
+		{% csrf_token %}
+		<label for="title">Interview Title:</label>
+		<input type="text" name="title" value="{{ interview.title }}">
+		<br>
+		<br>
+		{% for key, value in student_dict.items %}
+		{% if  value  %}
+		<input type="checkbox" name="student" value="{{ key.Emailid }}" checked>
+		<label for="student"> {{ key.Emailid }} </label>
+		{% else %}
+		<input type="checkbox" name="student" value="{{ key.Emailid }}">
+		<label for="student"> {{ key.Emailid }} </label>
+ 		{% endif %}
+		<br>
+		{% endfor %}
+		<br>
+		<label for="start-time"> Start Time: </label>
+		<input type="datetime-local" name="start-time" value="{{ interview.start_time }}">
+		<br>
+		<br>
+		<label for="end-time"> End Time: </label>
+		<input type="datetime-local" name="end-time" value="{{ interview.end_time }}">
+		<input type="hidden" name="interview-id" value="{{ interview.id }}">
+		<br>
+		<br>
+		<button type="submit">Submit</button>
+	</form>
+</body>
+</html>

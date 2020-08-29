@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scheduled Interviews</title>
+</head>
+<body>
+	<h1 align= "center">All scheduled interview list</h1>
+	{% for key, value in interview_students_details.items %}
+		<h3>{{ key.title }}</h3>
+		<h4>start time: {{ key.start_time }}</h4>
+		<h4>end time: {{ key.end_time }}</h4>
+
+		<ul>
+			{% for val in value %}
+				<li>{{val.Firstname}} {{val.LastName}}  - {{ val.Emailid }}</li>
+			{% endfor %}
+		</ul>
+		<form method="GET" action="{% url 'edit-interview'%}">
+			{% csrf_token %}
+			<input type="hidden" name="interview-id" value = {{ key.id }}>
+			<button type="submit">Edit</button>
+		</form>
+	{% endfor %}
+
+	<a href="{% url 'home-view'%}">Create Interview</a>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create interview</title>
+</head>
+<body>
+	<h1 align='center'>Interview Creation Protal</h1>
+	<a href="{% url 'show-all'%}">Interview List</a>
+	<br>
+	<br>
+	{% if messages %}
+		    {% for message in messages %}
+		     {{ message }}
+		    {% endfor %}
+    {% endif %}
+	<br>
+	<form method="POST" action="{% url 'create-interview' %}">
+		{% csrf_token %}
+		<label for="title">Interview Title:</label>
+		<input type="text" name="title" value="Enter title">
+		<br>
+		<br>
+		{% for student in students %}
+		<input type="checkbox" name="student" value="{{ student.Emailid }}">
+		<label for="student"> {{ student.Emailid }} </label>
+		<br>
+		{% endfor %}
+		<br>
+		<label for="start-time"> Start Time: </label>
+		<input type="datetime-local" name="start-time">
+		<br>
+		<br>
+		<label for="end-time"> End Time: </label>
+		<input type="datetime-local" name="end-time">
+		<br>
+		<br>
+		<button type="submit">Submit</button>
+	</form>
+</body>
+</html>
